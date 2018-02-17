@@ -504,11 +504,7 @@ export default function<T, P, I, TI, HI, PI, C, CC, CX, PL>(
               workInProgress,
             );
 
-            appendAllChildren(instance, workInProgress);
 
-            // Certain renderers require commit-time effects for initial mount.
-            // (eg DOM renderer supports auto-focus for certain elements).
-            // Make sure such renderers get scheduled for later work.
             if (
               finalizeInitialChildren(
                 instance,
@@ -520,6 +516,12 @@ export default function<T, P, I, TI, HI, PI, C, CC, CX, PL>(
             ) {
               markUpdate(workInProgress);
             }
+            appendAllChildren(instance, workInProgress);
+
+            // Certain renderers require commit-time effects for initial mount.
+            // (eg DOM renderer supports auto-focus for certain elements).
+            // Make sure such renderers get scheduled for later work.
+
             workInProgress.stateNode = instance;
           }
 
