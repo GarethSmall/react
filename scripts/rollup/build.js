@@ -235,7 +235,11 @@ function getPlugins(
     },
     isProduction && {
       transformBundle(code) {
-        return require('prepack').prepack(code)
+        const prepackOptions = {
+          simpleClosures: true,
+          omitInvariants: true,
+        };
+        return require('prepack').prepack(code, prepackOptions);
       }
     },
     // Apply dead code elimination and/or minification.
